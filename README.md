@@ -188,7 +188,7 @@ curl -X 'DELETE' \
   -H 'Content-Type: application/json' \
   -d '{
   "ids": [
-    "id1", "id2r"
+    "id1", "id2"
   ]
 }'
 ```
