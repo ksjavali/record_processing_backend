@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    image: mongo-fastapi:latest
+    volumes:
+      - ./src/:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      - COLLECTION_NAME=records
+      - MONGO_HOST=mongodb://mongo_container:27017/
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongo_container
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data_mdb:/data/db
