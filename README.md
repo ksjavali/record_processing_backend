@@ -29,16 +29,6 @@ Docker and Docker Compose - [Official documentation](https://docs.docker.com/get
 git clone https://github.com/ksjavali/record-processing-backend.git
 ```
 
-### To compress the repository
-```bash
-git archive --format=tar.gz --output=backend_app.tar.gz HEAD
-```
-
-### To uncompress the tar ball file
-```bash
-tar -xzvf backend_app.tar.gz  -C path/to/folder
-```
-
 ## Navigate to the project directory
 
 ```bash
@@ -100,6 +90,15 @@ docker-compose build
 
 ```bash
 docker-compose up -d
+```
+### To compress the repository
+```bash
+git archive --format=tar.gz --output=backend_app.tar.gz HEAD
+```
+
+### To uncompress the tar ball file
+```bash
+tar -xzvf backend_app.tar.gz  -C path/to/folder
 ```
 
 ## API Documentation
