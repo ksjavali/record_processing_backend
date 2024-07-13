@@ -101,7 +101,7 @@ async def get_records_by_description(description: str):
         return HTTPException(status_code=500, detail=f"Internal Server Error: {e}")
 
 # Route to fetch records by timestamp
-@router.get("/timestamp/{timetsamp}")
+@router.get("/timestamp/{timestamp}")
 async def get_records_by_timestamp(timestamp: datetime):
     try:
         # Retrieve records matching the timestamp and non-deleted criteria
