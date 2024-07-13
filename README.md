@@ -109,7 +109,7 @@ Here record_id refers to the record_identifier.
 #### Assumption: I have assumed that there will be no spaces in the record_identifier and description.
 
 **POST /records/**
-- Creates a new record.
+- Creates new records.
 
 ```bash
 curl -X 'POST' \
@@ -184,7 +184,7 @@ curl -X 'PUT' \
 
 
 **DELETE /delete/**
-- Deletes multiple records based on IDs provided in the request body.
+- Deletes records based on IDs provided in the request body.
 ```bash
 curl -X 'DELETE' \
   'http://127.0.0.1:8000/delete/' \
