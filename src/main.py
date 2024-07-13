@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 from pymongo import ASCENDING
 from pymongo.errors import DuplicateKeyError
 from datetime import datetime
+from typing import List
 
 # Initialize FastAPI application
 app = FastAPI()
@@ -25,7 +26,7 @@ async def home():
     }
 
 # Route to fetch all records from MongoDB collection
-@router.get("/all/records")
+@router.get("/records/all")
 async def  get_all_records():
     data = collection.find( )
     return all_records(data)
@@ -125,21 +126,44 @@ async def get_records_by_timestamp(timestamp: datetime):
 
 
 # Route to create a record
-@router.post("/")
-async def create_record(record: Records):
-    try:
-        # Insert document with unique 'record_identifier'
-        collection.insert_one(dict(record))
-        return {"status_code": 200, "message": "Record created successfully"}
-     # Handle case where record_identifier is not unique
+# @router.post("/")
+# async def create_record(record: Records):
+#     try:
+#         # Insert document with unique 'record_identifier'
+#         collection.insert_one(dict(record))
+#         return {"status_code": 200, "message": "Record created successfully"}
+#      # Handle case where record_identifier is not unique
 
-    except DuplicateKeyError:
-        return HTTPException(status_code=400, detail="Record identifier must be unique")
+#     except DuplicateKeyError:
+#         return HTTPException(status_code=400, detail="Record identifier must be unique")
     
-    # Handle any other unexpected errors
+#     # Handle any other unexpected errors
+#     except Exception as e:
+#         return HTTPException(status_code=500, detail=f"Error creating record: {e}")
+
+@router.post("/records/")
+async def add_records(records: List[Records]):
+    try:
+        # Convert records to dictionary format
+        records_dict = [dict(record) for record in records]
+        
+        try:
+            # Insert documents with unique 'record_identifier'
+            result = collection.insert_many(records_dict, ordered=False)
+            return {"status_code": 200, "message": f"{len(result.inserted_ids)} records created successfully"}
+        
+        except DuplicateKeyError as e:
+            # Extract duplicate key errors
+            duplicate_errors = e.details.get('writeErrors', [])
+            duplicate_keys = [error['op']['record_identifier'] for error in duplicate_errors]
+            return HTTPException(status_code=400, detail=f"Duplicate record identifiers found: {duplicate_keys}")
+            # Check deletion result
+            
+    except HTTPException as e:
+        return e
+    
     except Exception as e:
-        return HTTPException(status_code=500, detail=f"Error creating record: {e}")
-  
+        return HTTPException(status_code=500, detail=f"Error creating records: {e}")
     
 # Route to update a record
 @router.put("/{record_id}")
@@ -155,23 +179,10 @@ def update_record(record_id:str, updated_record: Records):
     except Exception as e:
         return HTTPException(status_code = 500, detail = f"Some error occured {e}")
 
-# Route to delete a record
-@router.delete("/delete/{record_id}")
-async def delete_record(record_id: str):
-    try:
-        existing_doc = collection.find_one({"record_identifier":record_id})
-        if not existing_doc:
-            return HTTPException(status_code = 404, detail = "ID does not exist")
-        resp = collection.delete_one({"record_identifier":record_id})
-        return {"status_code":200, "message": "Task deleted successfully"}
 
-    except Exception as e:
-        return HTTPException(status_code = 500, detail = f"Error {e}")
-    
-
-# Route to many records based on record_ids
-@router.delete("/delete")
-async def delete_many_records(delete_ids_model: DeleteIDsModel):
+# Route to delete records based on record_ids
+@router.delete("/delete/")
+async def delete_records(delete_ids_model: DeleteIDsModel):
     try:
         # Validate and convert list of record_ids
         record_identifiers = delete_ids_model.ids

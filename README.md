@@ -104,29 +104,33 @@ tar -xzvf backend_app.tar.gz  -C path/to/folder
 ## API Documentation
 ### API Endpoints
 
-Here record_id refers to the record_identifier
+Here record_id refers to the record_identifier.
 
-**POST /**
+#### Assumption: I have assumed that there will be no spaces in the record_identifier and description.
+
+**POST /records/**
 - Creates a new record.
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8000/' \
+  'http://127.0.0.1:8000/records/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{
-  "record_identifier": "id",
-  "description": "your_description",
-  "timestamp": "2024-07-13T16:47:26.418Z",
-  "category": 0
-}'
+  -d '[
+  {
+    "record_identifier": "string",
+    "description": "string",
+    "timestamp": "2024-07-13T20:15:20.604Z",
+    "category": 0
+  }
+]'
 ```
 
-**GET /all/records**
+**GET /records/all**
 - Returns all records from the MongoDB collection.
 ```bash
 curl -X 'GET' \
-  'http://localhost:8000/all/records' \
+  'http://127.0.0.1:8000/records/all' \
   -H 'accept: application/json'
   ```
 
@@ -178,25 +182,17 @@ curl -X 'PUT' \
 }'
 ```
 
-**DELETE /delete/{record_id}**
-- Deletes a record identified by `record_id`.
 
-```bash
-curl -X 'DELETE' \
-  'http://127.0.0.1:8000/delete/{record_id}' \
-  -H 'accept: application/json'
-```
-
-**DELETE /delete**
+**DELETE /delete/**
 - Deletes multiple records based on IDs provided in the request body.
 ```bash
 curl -X 'DELETE' \
-  'http://127.0.0.1:8000/delete' \
+  'http://127.0.0.1:8000/delete/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "ids": [
-    "id1", "id2"
+    "string"
   ]
 }'
 ```

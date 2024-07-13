@@ -5,21 +5,20 @@ from main import app
 client = TestClient(app)
 
 # Sample record identifier for testing
-SAMPLE_RECORD_ID = "1"
+SAMPLE_RECORD_ID = "100"
 
 # Test creating a valid record
 def test_create_record_valid():
-    new_record = {
+    new_record = [{
         "record_identifier": SAMPLE_RECORD_ID,
         "description": "Test record",
         "timestamp": "2024-07-13T12:00:00Z",
         "category": 1
-    }
-    response = client.post("/", json=new_record)
+    }]
+    response = client.post("/records/", json=new_record)
     assert response.status_code == 200
     assert "status_code" in response.json()
     assert response.json()["status_code"] == 200
-    assert "Record created successfully" in response.json()["message"]
 
 # Test creating a record with an invalid category type
 def test_create_record_invalid_category():
@@ -57,20 +56,5 @@ def test_update_record_not_found():
         "category": 2
     }
     response = client.put(f"/{record_id}", json=updated_record)
-    assert "detail" in response.json()
-    assert "ID does not exist" in response.json()["detail"]
-
-# Test deleting an existing record
-def test_delete_record_valid():
-    response = client.delete(f"/delete/{SAMPLE_RECORD_ID}")
-    assert response.status_code == 200
-    assert "status_code" in response.json()
-    assert response.json()["status_code"] == 200
-    assert "Task deleted successfully" in response.json()["message"]
-
-# Test deleting a non-existing record
-def test_delete_record_not_found():
-    record_id = "non_existing_id"  # Non-existing record ID
-    response = client.delete(f"/delete/{record_id}")
     assert "detail" in response.json()
     assert "ID does not exist" in response.json()["detail"]
