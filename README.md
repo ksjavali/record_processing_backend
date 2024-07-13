@@ -30,9 +30,12 @@ Docker and Docker Compose - [Official documentation](https://docs.docker.com/get
 git clone https://github.com/ksjavali/record-processing-backend.git
 ```
 
+## Navigate to the project directory
+
 ```
 cd record-processing-backend
 ```
+
 ### Setup Virtual Environment
 
 ```
@@ -41,6 +44,7 @@ python -m venv env
 ```
 source env/bin/activate  # On Windows, use env\Scripts\activate
 ```
+
 ### Install Dependencies
 ```
 pip install -r requirements.txt
@@ -58,6 +62,17 @@ Example:
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mbpzzqn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 ```
 
+## Build the Docker containers
+
+```
+docker-compose build
+```
+
+## Start the Docker containers in detached mode
+
+```
+docker-compose up -d
+```
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
 
