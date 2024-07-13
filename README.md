@@ -107,6 +107,22 @@ docker-compose up -d
 
 Here record_id refers to the record_identifier
 
+**POST /**
+- Creates a new record.
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "record_identifier": "id",
+  "description": "your_description",
+  "timestamp": "2024-07-13T16:47:26.418Z",
+  "category": 0
+}'
+```
+
 **GET /all/records**
 - Returns all records from the MongoDB collection.
 ```bash
@@ -147,21 +163,6 @@ curl -X 'GET' \
   -H 'accept: application/json'
   ```
 
-**POST /**
-- Creates a new record.
-
-```bash
-curl -X 'POST' \
-  'http://127.0.0.1:8000/' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "record_identifier": "id",
-  "description": "your_description",
-  "timestamp": "2024-07-13T16:47:26.418Z",
-  "category": 0
-}'
-```
 
 **PUT /{record_identifier}**
 - Updates a record identified by `record_id`.
