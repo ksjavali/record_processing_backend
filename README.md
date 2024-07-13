@@ -58,12 +58,10 @@ source env/bin/activate  # On Windows, use env\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
-### 	Set up MongoDB:
+### Set up MongoDB
 Ensure MongoDB is installed and running. Configure the MongoDB URI in .env file.
 	
 ### Environment Variables
-
-
 Create a .env file in the root directory of your project and add the following:
 
 ```bash
