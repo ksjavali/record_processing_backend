@@ -36,7 +36,7 @@ git archive --format=tar.gz --output=backend_app.tar.gz HEAD
 
 ### To uncompress the tar ball file
 ```bash
-tar -xzvf backend_app.tar.gz
+tar -xzvf backend_app.tar.gz  -C path/to/folder
 ```
 
 ## Navigate to the project directory
