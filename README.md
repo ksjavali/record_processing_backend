@@ -29,12 +29,6 @@ Docker and Docker Compose - [Official documentation](https://docs.docker.com/get
 git clone https://github.com/ksjavali/record-processing-backend.git
 ```
 
-## Navigate to the project directory
-
-```bash
-cd record_processing_backend
-```
-
 ### To compress the repository
 ```bash
 git archive --format=tar.gz --output=backend_app.tar.gz HEAD
@@ -44,6 +38,13 @@ git archive --format=tar.gz --output=backend_app.tar.gz HEAD
 ```bash
 tar -xzvf backend_app.tar.gz
 ```
+
+## Navigate to the project directory
+
+```bash
+cd record_processing_backend
+```
+
 
 ### Setup Virtual Environment
 
