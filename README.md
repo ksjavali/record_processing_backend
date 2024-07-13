@@ -24,7 +24,6 @@ Python 3.9 or higher - [Official documentation](https://www.python.org/downloads
 Docker and Docker Compose - [Official documentation](https://docs.docker.com/get-docker/)
 
 ## Installation
-
 ### Clone the Repository
 ```bash
 git clone https://github.com/ksjavali/record-processing-backend.git
@@ -33,7 +32,17 @@ git clone https://github.com/ksjavali/record-processing-backend.git
 ## Navigate to the project directory
 
 ```bash
-cd record-processing-backend
+cd record_processing_backend
+```
+
+### To compress the repository
+```bash
+git archive --format=tar.gz --output=backend_app.tar.gz HEAD
+```
+
+### To uncompress the tar ball file
+```bash
+tar -xzvf backend_app.tar.gz
 ```
 
 ### Setup Virtual Environment
